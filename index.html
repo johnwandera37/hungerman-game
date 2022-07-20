@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Javascript Exam 1</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        html,body{
+            background-color:#F6E9F9;
+            place-items: center;
+            text-align: center;
+            display: grid;
+        }
+        .container{
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        width: 800px;
+        background-color: #F2F4FB;
+        height: 600px;
+        margin-top: 25px;
+        }
+        .hungerman{
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            background: #fff;
+            padding: 4px;
+            height: 195px;
+            margin-top: 20px;
+        }
+      .circle {
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        padding: 6px 0;
+        font-size: 12px;
+        line-height: 1.428571429;
+        border-radius: 30px;
+        background-color: LightGray;
+        float: left;
+        margin: 5px;
+      }
+      .bigCenter{
+        margin-left: 135px;
+        margin-top: 198px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 15px;
+        padding: 8px;
+        background-color: #1D2537;
+        height: 167px;
+        width:546px;
+        
+      }
+      .center {
+        color: #262548;
+        text-align: left;
+        background: #FBF4E4;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        width: 530px;
+        height: 152px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: 23px;
+        font-style:bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+
+        <div class="hungerman">
+           
+        <div class="header" style=" box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 15px; padding: 4px;"> <h1 style="color:#5EC5A6; font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 50px;">Play Hungerman Game</h1></div>
+
+        <div class="floatCircles" style="  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);border-radius: 15px; margin-top: 3px;">  
+            <div id="bit7" type="div" class="bitbtn circle"></div>
+            <div id="bit6" type="div" class="bitbtn circle"></div>
+            <div id="bit5" type="div" class="bitbtn circle"></div>
+            <div id="bit4" type="div" class="bitbtn circle"></div>
+            <div id="bit3" type="div" class="bitbtn circle"></div>
+            <div id="bit2" type="div" class="bitbtn circle"></div>
+            <div id="bit1" type="div" class="bitbtn circle"></div>
+            <div id="bit0" type="div" class="bitbtn circle"></div>
+            <div style="height:20px; clear:both"></div>
+        </div>
+        </div>
+
+        <div class="bigCenter">
+            <div class="center">
+                Type a random letter on the keyboard to get started.
+                Press GO to see if correct letter is guessed.
+            <br>
+            <form>
+                <input style="margin-left:100px;" id="keyboard" style="width: 50%;" placeholder="Type here"></input>
+                <button id="go" class="btn btn-primary">Go</button>
+            </form>
+            </div>
+        </div>
+      
+        
+    </div>
+
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="exam1.js"></script>
+  </body>
+</html>
