@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Javascript Exam 1</title>
+    <title>Hungerman</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         html,body{
             background-color:#F6E9F9;
-            place-items: center;
-            text-align: center;
-            display: grid;
+            /* place-items: center;
+            text-align: center; */
+            /* display: grid; */
         }
         .container{
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -19,12 +19,13 @@
         width: 800px;
         background-color: #F2F4FB;
         height: 600px;
-        margin-top: 25px;
+        margin-left: 320px;
+        margin-top: -210px;
         }
         .hungerman{
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             border-radius: 15px;
-            background: #fff;
+            background:#CBEAEB;
             padding: 4px;
             height: 195px;
             margin-top: 20px;
@@ -38,7 +39,7 @@
         line-height: 1.428571429;
         border-radius: 30px;
         background-color: LightGray;
-        float: left;
+        float: right;
         margin: 5px;
       }
       .bigCenter{
@@ -47,15 +48,15 @@
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         border-radius: 15px;
         padding: 8px;
-        background-color: #1D2537;
+        background-color: #CBEAEB;
         height: 167px;
         width:546px;
         
       }
       .center {
-        color: #262548;
+        color: #CBEAEB;
         text-align: left;
-        background: #FBF4E4;
+        background: #1D2537;
         border-radius: 15px;
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         padding: 15px;
@@ -65,16 +66,69 @@
         font-size: 23px;
         font-style:bold;
       }
+      .startButton{
+        background-color: #F2F4FB;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        height: 100px;
+        width: 150px;
+        padding: 5px;
+        margin-left: 1125px;
+        margin-top: 30px; 
+      }
+      .countDownClass{
+        background-color: #F2F4FB;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        height: 100px;
+        width: 150px;
+        padding: 5px;
+        border-radius: 10px;
+        margin-left: 1125px;
+        margin-top: 5px;
+      }
+      .start{
+        background-color: #C3CBE3;
+        font-size: 38px;
+        margin-left: 4px;
+        margin-top: 5px;
+        border-radius: 0.5em;
+        border: 1px solid #e8e8e8;
+        transition: all .3s;
+        box-shadow: 6px 6px 12px #c5c5c5,
+                    -6px -6px 12px #fff;
+        height: 80px;
+        width: 130px;
+      }
+      .start:hover{
+        box-shadow: -6px -6px 12px #c5c5c5,
+                      6px 6px 12px #fff;
+      }
+      .count{
+        text-align: center;
+
+      }
+
     </style>
   </head>
   <body>
-    <div class="container">
+    <div class="startButton">
+      <button class="start" style="color:#1D2537;">Start</button>
+    </div>
 
+    <div class="countDownClass">
+      <label class="count">CountDown</label>
+    </div>
+    
+
+    <div class="container">
+      
         <div class="hungerman">
            
-        <div class="header" style=" box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 15px; padding: 4px;"> <h1 style="color:#5EC5A6; font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 50px;">Play Hungerman Game</h1></div>
+        <div class="header" style=" box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); border-radius: 15px; padding: 4px; background-color: #fff; text-align: center;"> <h1 style="color:#5EC5A6; font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 50px;">Play Hungman Game</h1></div>
 
-        <div class="floatCircles" style="  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);border-radius: 15px; margin-top: 3px;">  
+        <div class="floatCircles" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);border-radius: 15px; margin-top: 3px; background-color: #fff;">  
+            <div id="bit9" type="div" class="bitbtn circle"></div>
+            <div id="bit8" type="div" class="bitbtn circle"></div>
             <div id="bit7" type="div" class="bitbtn circle"></div>
             <div id="bit6" type="div" class="bitbtn circle"></div>
             <div id="bit5" type="div" class="bitbtn circle"></div>
@@ -87,13 +141,15 @@
         </div>
         </div>
 
+        <div class="word"></div>
+
         <div class="bigCenter">
             <div class="center">
                 Type a random letter on the keyboard to get started.
-                Press GO to see if correct letter is guessed.
+                Start guesing your letters to find the word.
             <br>
             <form>
-                <input style="margin-left:100px;" id="keyboard" style="width: 50%;" placeholder="Type here"></input>
+                <input style="margin-left:100px; color:#1D2537;" id="keyboard" style="width: 50%;" placeholder="Type here"></input>
                 <button id="go" class="btn btn-primary">Go</button>
             </form>
             </div>
@@ -106,6 +162,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="exam1.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>
