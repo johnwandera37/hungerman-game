@@ -1,89 +1,139 @@
 $(function(){
-
-	///fetching a random word from api
-	//can try using api for your random word, sometimes mapping the word can be such a drag!!
-	// 		var api = 'https://random-word-api.herokuapp.com/word' //api that fetches random words
-	// 		fetch(api) 
-	// 		.then(res => res.json()) //data in json format
-	// 		.then(word=>{
-	// 			console.log(word + ', random word picked by api'),
-	// 			console.log(word.map(wordlength => wordlength.length + ', length of the word')),//lenght of word
-	// 			console.log(word.map(word=> word[2] + ', word at specified index')), //character at specified index
-	// 			console.log(word.map(word=>word.length-1 + ', last index of the word')) //last character of the random word	
-	// 	})
-
 	
-	var words = new Array('','hello', 'taken', 'nice', 'game', 'little', 'born', 'toogle', 'together', 'midnight', 'ninja');
+	var words = new Array('', 'hello', 'taken', 'nice', 'game', 'little', 'born', 'toogle', 'together', 'midnight', 'ninja');
 	index = Math.round(Math.random()*10000)%10; //gives random indices from 0 to 10
-	//tests
-	// console.log(index + ', index at random');
-	console.log(words[index] + ', word at that index');
-	// console.log(words[index].length + ', length of random word');
-	// console.log(words[index].length-1 + ', last index of the word');
 
+	console.log(words[index] + ', word at that index');//for tests only
 	
-	var alphabets = new Array(); //creates word in new form in the input box
+	var alphabets = new Array(); //array that stores characters to be compared with the input characters, equals to characters from random word
 	var alpha_index = 0;
+
+	var  ledcolors = new Array();//array to store div classes for green LED
+	var ledcolors_index = 0;
 
 	var input = new Array(); //creates array of a word that will be compared to alphabets
 	var input_index = 0;
+
+	var inputledcolors = new Array();//array for div letters and colors(green)
+	var inputledcolors_index = 0;
 
 	var running = 0;
 	var fail = 6;
 	var advising = 0;
 
-	const floatCircles = document.querySelector('.floatCircles') // a div in html
-	var  ledcolors = new Array();//array to store dive classes for green LED
-	var ledcolors_index = 0;
+	const floatCircles = document.querySelector('.floatCircles') //div in html
+
+	var hanghead = `<img src="/hunger">`;
+	var hangbody = `<img src="/hunger">`;
+	var rightarm = `<img src="/hunger">`;
+	var leftarm = `<img src="/hunger">`;
+	var rightleg = `<img src="/hunger">`;
+	var leftleg = `<img src="/hunger">`;
+
+	var hangparts = [];
+
+	//function that displays lEDs in browser
+	// function LEDs(){
+	// 	var dispCircles = "";
+
+	// 	//for  red div leds, looping indices of word chosen at random
+	// 	for(i=0; i<words[index].length; i++){
+	// 		secstate = 0;
+	// 		for(j=0; j<=ledcolors_index; j++)
+	// 		if(words[index].charAt(i) == ledcolors[j]) secstate =1;
+	// 		//test pass
+	// 		// console.log(ledcolors_index);
+	// 		// console.log(ledcolors);//test
+	// 		// console.log(ledcolors[j]);
+
+	// 		if(secstate) {
+	// 			//for every input that matches the characters of the random word, remains/replaces the led secstate is 1
+	// 			dispCircles+=words[index].charAt(i)+" ";	
+	// 		}
+	// 		else{
+	// 			// circles = `<div class="circle" style="background-color: red;">${words[index].charAt(i)}</div>`;
+	// 			// dispCircles+=circles
+	// 			dispCircles+="* ";
+
+	// 		}
+	// 	}
+	// 	// floatCircles.innerHTML = dispCircles;//ads LEDs to browser
+	// 	floatCircles.innerHTML = dispCircles;
+	// }
 	
-	//function that displays a word in input, but with star char hiding the chosen word
+	//function that displays a word in input, but with star char hiding the chosen word, red leds
 	function chose(){
 		var dispCircles = ""; // for LED circles in browser
-		var choice ="";//jfor hidden random word characters
+		var choice ="";//for hidden random word characters
 		var blank = 0; //determines a win
-		for(i=0; i<words[index].length; i++){	//looping indices of the word chosen at random 
-			state = 0; //current state
+
+
+
+		//for alphabets, looping indices of the word chosen at random 
+		for(i=0; i<words[index].length; i++){
+			state = 0;
 			for(j=0; j<=alpha_index; j++)
 			if(words[index].charAt(i) == alphabets[j]) state =1;
 			//tests
-			// console.log(alpha_index); //indices of alphabets in new array shows 0s, follows the word length and appear twice
-			// console.log(alphabets); //still empty, following the lenght of random word length
+			// console.log(alpha_index + 'alpha_index'); //indices of alphabets in new array shows 0s, follows the word length and appear twice
+			// console.log(alphabets); //still empty array, following the lenght of random word length
 			// console.log(words[index].charAt(i)); //shows characters of random word
-			// console.log(alphabets[j]);//this is undefined
+			// console.log(alphabets[j]);//this is undefined, at first, letter becomes characters that matched correctly
 
+			//alphabets state	
 			if(state) {
+				//for every input that matches the characters of the random word, remains/replaces the "*" or led state is 1
 				choice+=words[index].charAt(i)+" ";
-				dispCircles=words[index].charAt(i);	
+				dispCircles+=words[index].charAt(i)+" ";	
 			}
 			else{
 				choice+="* "; //current state, no word character will be shown
 
-				//displaying LED circle
-				dispCircles+="_ "
-				circles = `<div class="circle" style="background-color: red;"></div>`;
+				circles = `<div class="circle" style="background-color: red;">${words[index].charAt(i)}</div>`;
+				//${words[index].charAt(i)}
 				dispCircles+=circles
-				
-				blank =1;//change of state showing that a WIN cannot be shown in this state
+				//not a win yet
+				blank =1;
 			}
 		}
-
-		document.alphform.word.value = choice; //now adds the char to input in browser 
-		floatCircles.innerHTML = dispCircles;
+		document.alphform.word.value = choice; //adds the characters to input in browser 
+		floatCircles.innerHTML = dispCircles;//ads LEDs to browser
 
 		if(!blank){
 			clearInterval(counts);//stop time count
-			document.alphform.trials.value = " You WIN"; //when blank is at state 0
-			running = 0; //shows that word is fully guessed, changes to state 0, not running	
+			document.alphform.trials.value = " You WIN";
+
+			//displaying bubbles on winning
+			const divbubbles = document.querySelector('.bubbles');
+			bubbles = `
+			// 
+			<img src="/bubble.png">
+			<img src="/bubble.png">
+			<img src="/bubble.png">
+			<img src="/bubble.png">
+			<img src="/bubble.png">
+			<img src="/bubble.png">
+			<img src="/bubble.png">`;
+		divbubbles.innerHTML = bubbles;
+
+		running = 0; //state 0, not running, word guessed
 		}
 	}
 
 	//clicking start button
-	$('.start').click(()=>{
-		chose(); //this displays the hidden word characters in input box that is chosen at random
-		newRandomWord();//when start is clicked again
-		time();//starts time on clicking start
+	$('.start').click(
+		function startgame(){
+		// LEDs(); //function for red leds
+		chose(); //displays the hidden word characters in input box that is chosen at random
+		newRandomWord()//when start is clicked again
+		time(); // ticking time function
 		
-	})	
+	})
+//retry button function
+	$('.retry').click(()=>{
+		retry();
+	}
+	)
 
 	//if start button is clicked again
 	function newRandomWord(){
@@ -91,22 +141,59 @@ $(function(){
 			running = 1; //game started
 			fail = 6; //attempts  starts at 6
 			document.lifeform.life.value = fail; //displays attempts in attempts in div in browser
-			document.alphform.trials.value = "";//this will be empty since game will be starting
-			document.alphform.word.value = "";//word will be displayed from chose function, this will be empty
-
-			chose(); //this displays the hidden word characters in input box that is chosen at random
-			
+			document.alphform.trials.value = "";//default value displayed
+			document.alphform.word.value = "";//default value
+			chose(); //displays the hidden word characters in input box that is chosen at random
 		}
 		else{
 			helpmsg('Word playing, time is ticking!');//if clicked again, this message is shown, nothing changes
 		}
 	}
 
+	//function for reloading the page not working properly
+	const retry = ()=>{
+			window.location.reload();
+			chose;
+			time();
+		}
+
+		
 	//clicking go button to submit keyboard inputs
 	$('#go').click((e)=>{
 		e.preventDefault();//preventing browser from reloading in every letter submission
-		findLetter();
+		findLetter();//function for letter inputs
+		// LEDletters(); //function for greenleds letter input
 	})
+
+	//function for ledletters input
+	// function LEDletters(ledletter){
+	// 	ledletter = $('#keyboard').val(); //getting keyboard input
+	// 		//leds colors stored here
+	// 		// var ledgreen = `<div class="circle" style="background-color: green;">${ledletter}</div>`;
+	// 		secstate = 0;		
+	// 		for(i=0; i<=inputledcolors_index; i++){
+	// 			if(inputledcolors[i] == ledletter) secstate = 1;
+	// 			 console.log(inputledcolors);
+	// 			// console.log(inputledcolors_index);
+	// 			// console.log(inputledcolors[i]);
+	//  		}
+	// 		if(!secstate){
+	// 			inputledcolors_index++;
+	// 			inputledcolors[inputledcolors_index] = ledletter; //place input letter led into array
+
+	// 			for(i=0; i<words[index].length; i++)//loop through word characters
+	// 			if(words[index].charAt(i) == ledletter) secstate = 1;
+				
+	// 			// console.log(ledletter);
+
+	// 			if(secstate){
+	// 				ledcolors_index++;
+				
+	// 				ledcolors[ledcolors_index] = ledletter;
+	// 			}
+	// 		}
+			
+	// }
 
 	//function to get input from keyboard and compare the letters
 	function findLetter(letter){
@@ -115,19 +202,10 @@ $(function(){
 			helpmsg("click Start to begin")
 		}
 		else{
-			state = 0;//current state
+			state = 0;
 			for(i=0; i<=input_index; i++){
-				if(input[i] == letter) state=1;//new state, for correct/inputed characters characters being equal to input and inserted in an array
-				//tests
-				// console.log(input_index);// indices of characters inserted in an array like counting the array of characters, luks weird though the way they repeat themselves*
-				// console.log(input)//the arrray that carries input characters
-				// console.log(input[i])//characters from array, first typed is undefined probably at index 0, not shown, shown only when second character is typed as it goes on, last typed will not be shown
+				if(input[i] == letter) state=1;//new state, for input characters inserted in an array, input_index=> index that counts arrays that carry input characters, input => the array that stores input characters, [i] characters typed at those indices
 			}
-
-			// for(j=0; j<=ledcolors_index; j++){
-			// 	if(ledcolors[j] == letter) state=1;
-			// 	console.log(ledcolors)//test if rray is storing letters, yes
-	 		// }
 
 			//if that is not the case, input doesn't match correct characters
 			if(!state){
@@ -135,47 +213,23 @@ $(function(){
 				input_index++;//deosn't seem to have efffect on code
 				input[input_index] = letter;///place input character into array
 
-				// ledcolors_index++;
-				// ledcolors[ledcolors_index] = letters;//**places div into array for LEDs
-				// console.log(ledcolors);
-
-				//var ledgreen = `<div class="circle" style="background-color: green;">${words[index].charAt(i)}</div>`;
-
 				for(i=0; i<words[index].length; i++)//loop through word characters
-				if(words[index].charAt(i) == letter) state=1; //same state as correct input, alphabets in new array
+				if(words[index].charAt(i) == letter) state = 1;//same state as correct input, alphabets in new array stored*
 
-				//looping leds class
-					
-					// // floatCircles.innerHTML = ledgreen;
-					// for(j=0; j<words[index].length; j++)//loop through word characters
-					// if(words[index].charAt(i) == ledgreen) {state=1;
-					// letter = ledgreen;
-					// }
-
-
-					if(state){
-
-						alpha_index++; //ensures letter replaces the star characters and remains, alphabets in a virtual array that equals to characters of random word
-						// ledcolors_index++;
-						// ledgreen++;
-						// floatCircles.innerHTML = ledgreen;
-						// alphabets[alpha_index] = ledgreen;
-						// alphabets[ledcolors_index] = letter
-						alphabets[alpha_index] = letter;//alphabets saved in array, alphabets equal to input
-						
-					}
-					else 
-					fail--;//reduce attempts
-					
-					document.lifeform.life.value=fail; //updates the attempts in the div
-					if(fail == 0){ //when attempts reach 0
-						
+				if(state){
+				alpha_index++; //ensures letter replaces the star characters and remains, alphabets in a virtual array that equals to characters of random word
+				alphabets[alpha_index] = letter;//alphabets saved in array, alphabets equal to input
+				}
+				else 
+				fail--;//reduce attempts
+				document.lifeform.life.value=fail; //updates the attempts in the div
+				if(fail == 0){ //when attempts reach 0
 						document.alphform.trials.value = "You lose";
 						document.alphform.word.value = words[index];//displaying the word
 						running = 0; //state not running
 						clearInterval(counts);
 					}
-					else chose();///maintain the star characters, as hiding characters || supposed to call an new random word
+					else chose();///maintain the star characters, as hiding characters || supposed to call a new random word
 				}
 				else{
 				helpmsg(`letter ${letter} is already used`); //if input neither matches state 1 nor anything alse false under repeated letter
@@ -195,21 +249,22 @@ $(function(){
 
 	//timer function
 	const time = ()=>{
-		let timeCount = new Date(60000); //where to start counting from (time)
+		let timeCount = new Date(60000); //where to start counting from (time 60 sec)
 		const digits = {//format display according to text value in browser
 			minute: '2-digit',
 			second: '2-digit',
 		};
 
-		const tick = function (){ //working of the function
+		const tick = function (){
 			timeCount -= 1000 // counting downwards
-			console.log(timeCount);//correct values
 			const timeFormat = Intl.DateTimeFormat('en-US',digits).format(timeCount);
-			console.log(timeFormat);//correct time format
-			document.timeform.time.value = timeFormat;
-			if(tick) running =1;
+			
+			if(tick){
+				running = 1;
+				document.timeform.time.value = timeFormat;
+			}
+		
 			if(timeCount === 0){ //when counts reaches 0
-				
 				clearInterval(counts); //stops time count at 0s
 				document.alphform.trials.value = "You lose";
 				running = 0; //not running , lose state
@@ -218,8 +273,8 @@ $(function(){
 		};
 		tick();//recursion
 		counts = setInterval(tick, 1000); //after a single sec, countdown is made
-		return counts;
+		return counts;//over and over till 0 is reached
 	};
-	
-	
+
+//end	
 })
