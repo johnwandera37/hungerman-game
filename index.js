@@ -8,58 +8,20 @@ $(function(){
 	var alphabets = new Array(); //array that stores characters to be compared with the input characters, equals to characters from random word
 	var alpha_index = 0;
 
-	var  ledcolors = new Array();//array to store div classes for green LED
-	var ledcolors_index = 0;
-
 	var input = new Array(); //creates array of a word that will be compared to alphabets
 	var input_index = 0;
-
-	var inputledcolors = new Array();//array for div letters and colors(green)
-	var inputledcolors_index = 0;
 
 	var running = 0;
 	var fail = 6;
 	var advising = 0;
 
 	const floatCircles = document.querySelector('.floatCircles') //div in html
-
-
-	//function that displays lEDs in browser
-	// function LEDs(){
-	// 	var dispCircles = "";
-
-	// 	//for  red div leds, looping indices of word chosen at random
-	// 	for(i=0; i<words[index].length; i++){
-	// 		secstate = 0;
-	// 		for(j=0; j<=ledcolors_index; j++)
-	// 		if(words[index].charAt(i) == ledcolors[j]) secstate =1;
-	// 		//test pass
-	// 		// console.log(ledcolors_index);
-	// 		// console.log(ledcolors);//test
-	// 		// console.log(ledcolors[j]);
-
-	// 		if(secstate) {
-	// 			//for every input that matches the characters of the random word, remains/replaces the led secstate is 1
-	// 			dispCircles+=words[index].charAt(i)+" ";	
-	// 		}
-	// 		else{
-	// 			// circles = `<div class="circle" style="background-color: red;">${words[index].charAt(i)}</div>`;
-	// 			// dispCircles+=circles
-	// 			dispCircles+="* ";
-
-	// 		}
-	// 	}
-	// 	// floatCircles.innerHTML = dispCircles;//ads LEDs to browser
-	// 	floatCircles.innerHTML = dispCircles;
-	// }
 	
 	//function that displays a word in input, but with star char hiding the chosen word, red leds
 	function chose(){
 		var dispCircles = ""; // for LED circles in browser
 		var choice ="";//for hidden random word characters
 		var blank = 0; //determines a win
-
-
 
 		//for alphabets, looping indices of the word chosen at random 
 		for(i=0; i<words[index].length; i++){
@@ -70,13 +32,13 @@ $(function(){
 			// console.log(alpha_index + 'alpha_index'); //indices of alphabets in new array shows 0s, follows the word length and appear twice
 			// console.log(alphabets); //still empty array, following the lenght of random word length
 			// console.log(words[index].charAt(i)); //shows characters of random word
-			// console.log(alphabets[j]);//this is undefined, at first, letter becomes characters that matched correctly
+			// console.log(alphabets[j]);//this is undefined, at first, letter becomes characters that matched correctly with input
 
 			//alphabets state	
 			if(state) {
 				//for every input that matches the characters of the random word, remains/replaces the "*" or led state is 1
 				choice+=words[index].charAt(i)+" ";
-				dispCircles+=words[index].charAt(i)+" ";	
+				dispCircles+=`<div class="circle" style="background-color: limegreen;">${words[index].charAt(i)+" "}</div> `;	
 			}
 			else{
 				choice+="* "; //current state, no word character will be shown
@@ -115,9 +77,8 @@ $(function(){
 	//clicking start button
 	$('.start').click(
 		function startgame(){
-		// LEDs(); //function for red leds
 		chose(); //displays the hidden word characters in input box that is chosen at random
-		newRandomWord()//when start is clicked again
+		newRandomWord() //when start is clicked again
 		time(); // ticking time function
 		
 	})
@@ -148,7 +109,6 @@ $(function(){
 			chose;
 			time();
 		}
-
 		
 	//clicking go button to submit keyboard inputs
 	$('#go').click((e)=>{
@@ -156,36 +116,6 @@ $(function(){
 		findLetter();//function for letter inputs
 		// LEDletters(); //function for greenleds letter input
 	})
-
-	//function for ledletters input
-	// function LEDletters(ledletter){
-	// 	ledletter = $('#keyboard').val(); //getting keyboard input
-	// 		//leds colors stored here
-	// 		// var ledgreen = `<div class="circle" style="background-color: green;">${ledletter}</div>`;
-	// 		secstate = 0;		
-	// 		for(i=0; i<=inputledcolors_index; i++){
-	// 			if(inputledcolors[i] == ledletter) secstate = 1;
-	// 			 console.log(inputledcolors);
-	// 			// console.log(inputledcolors_index);
-	// 			// console.log(inputledcolors[i]);
-	//  		}
-	// 		if(!secstate){
-	// 			inputledcolors_index++;
-	// 			inputledcolors[inputledcolors_index] = ledletter; //place input letter led into array
-
-	// 			for(i=0; i<words[index].length; i++)//loop through word characters
-	// 			if(words[index].charAt(i) == ledletter) secstate = 1;
-				
-	// 			// console.log(ledletter);
-
-	// 			if(secstate){
-	// 				ledcolors_index++;
-				
-	// 				ledcolors[ledcolors_index] = ledletter;
-	// 			}
-	// 		}
-			
-	// }
 
 	//function to get input from keyboard and compare the letters
 	function findLetter(letter){
@@ -216,6 +146,7 @@ $(function(){
 				fail--;//reduce attempts
 				
 				document.lifeform.life.value=fail; //updates the attempts in the div
+
 				//showing hangman parts for every time an attempt is reduced
 				if(fail == 5){
 					document.getElementById('5').style.display = 'block';
@@ -234,7 +165,7 @@ $(function(){
 				}
 
 				if(fail == 0){ //when attempts reach 0
-					document.getElementById('0').style.display = 'block';
+					document.getElementById('0').style.display = 'block'; //hangman last part
 						document.alphform.trials.value = "You lose";
 						document.alphform.word.value = words[index];//displaying the word
 						running = 0; //state not running
