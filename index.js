@@ -23,14 +23,6 @@ $(function(){
 
 	const floatCircles = document.querySelector('.floatCircles') //div in html
 
-	var hanghead = `<img src="/hunger">`;
-	var hangbody = `<img src="/hunger">`;
-	var rightarm = `<img src="/hunger">`;
-	var leftarm = `<img src="/hunger">`;
-	var rightleg = `<img src="/hunger">`;
-	var leftleg = `<img src="/hunger">`;
-
-	var hangparts = [];
 
 	//function that displays lEDs in browser
 	// function LEDs(){
@@ -106,7 +98,7 @@ $(function(){
 			//displaying bubbles on winning
 			const divbubbles = document.querySelector('.bubbles');
 			bubbles = `
-			// 
+			<img src="/bubble.png">
 			<img src="/bubble.png">
 			<img src="/bubble.png">
 			<img src="/bubble.png">
@@ -222,8 +214,27 @@ $(function(){
 				}
 				else 
 				fail--;//reduce attempts
+				
 				document.lifeform.life.value=fail; //updates the attempts in the div
+				//showing hangman parts for every time an attempt is reduced
+				if(fail == 5){
+					document.getElementById('5').style.display = 'block';
+				}
+				if(fail == 4){
+					document.getElementById('4').style.display = 'block';
+				}
+				if(fail == 3){
+					document.getElementById('3').style.display = 'block';
+				}
+				if(fail == 2){
+					document.getElementById('2').style.display = 'block';
+				}
+				if(fail == 1){
+					document.getElementById('1').style.display = 'block';
+				}
+
 				if(fail == 0){ //when attempts reach 0
+					document.getElementById('0').style.display = 'block';
 						document.alphform.trials.value = "You lose";
 						document.alphform.word.value = words[index];//displaying the word
 						running = 0; //state not running

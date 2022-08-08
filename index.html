@@ -12,7 +12,6 @@
     <style type="text/css">
         html,body{
             background-image: url("backg.jpg");
-           
           
         }
 
@@ -24,7 +23,7 @@
         "bigCenter";
         }
 
-        .hangdude{
+        .hangmanparts{
         width: 310px;
         margin-top: 15px;
         border-radius: 15px;
@@ -33,7 +32,12 @@
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         height: 470px;
         margin-left: 50px;
+        display: grid;
+        text-align: center;
+        
       }
+     
+
 
       .container{
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -180,17 +184,15 @@
   <body>
     <div class="bigContainer">
 
-    <div class="hangdude">
-      <br><p style="text-align: center; color: #5EC5A6; font-size: 17px;"><b>Hanging Dude</b></p>
-      <div class="hangmanparts" style="width: 310px; height: 370px;">
-        <img src="hanger.png" style="margin-left: -150px; margin-top: -30px">
-        <img src="hanghead.png" style="margin-top: -425px; margin-left: -70px;">
-        <img src="hangbody.png" style="margin-top: -373px; margin-left: -50px;">
-        <img src="rightarm.png" style="margin-top: -476px; margin-left: -49px;">
-        <img src="leftarm.png" style="margin-top: -514px; margin-left: -154px">
-        <img src="rightleg.png" style="margin-top: -518px; margin-left: 10px;">
-        <img src="rightleg.png" style="margin-top: -556px; margin-left: -20px;">
-      </div>
+    <div class="hangmanparts">
+      <br><p style="color: #5EC5A6; margin-left: -20rem; font-size: 17px;"><b>Hanging Dude</b></p>
+      <img src="hanger.png" style="margin-left: -15rem; margin-top: -2rem;">
+        <img src="hanghead.png" id="5" style="margin-top: -42rem; margin-left: -12rem; display: none;">
+        <img src="hangbody.png" id="4" style="margin-top: -37.2rem; margin-left: -9.9rem; display: none;">
+        <img src="rightarm.png" id="3" style="margin-top: -44.5rem; margin-left: -9.8rem; display: none;">
+        <img src="leftarm.png" id="2" style="margin-top: -44.6rem; margin-left: -20.3rem; display: none;">
+        <img src="rightleg.png" id="1" style="margin-top: -42.5rem; margin-left: -6.98rem; display: none;">
+        <img src="rightleg.png" id="0" style="margin-top: -43.9rem; margin-left: -4rem; display: none;">
     </div>
 
     <div class="rightelements">
@@ -260,7 +262,7 @@
     <div class="bubbles">
   <!-- bubbles images go here -->
     </div>
-    
+    <!-- javascript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="index.js"></script>
