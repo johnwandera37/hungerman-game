@@ -1,9 +1,8 @@
 $(function(){
-	
-	var words = new Array('', 'hello', 'taken', 'nice', 'game', 'little', 'born', 'toogle', 'together', 'midnight', 'ninja');
-	index = Math.round(Math.random()*10000)%10; //gives random indices from 0 to 10
-
-	console.log(words[index] + ', word at that index');//for tests only
+	// api = 'https://random-word-api.herokuapp.com/all';//contains thousands of words, can use this
+	var words = new Array('', 'hello', 'taken', 'nice', 'game', 'little', 'born', 'toogle', 'together', 'midnight', 'ninja', 'absolutes', 'absorb', 'abuse', 'abstract', 'accelerate', 'accept', 'access', 'accidents', "anatomize","anatomized","anatomizes","anatomy","anatoxin","ancestor","ancestral","anchor","broiders","broidery","broiled","broilers","broke","broken","brokenhearted","broker","bromine","bronchioles","bronchitis","bronze","coryzal","coryzas","cos","coscript","coscripted","coscripting","coscripts","cosec","cosecant","cosecants","cosecs","cosmetician","cosmetology","cosmic","cosmical","cosmically","cosmid","cosmids", "cosmochemistry","cosmochemists","cosmogenic","cosmogonic","cosmogonical","cosmogonies","cosmogonist","defence","defenced","defenceman","defencemen","defences","defencing","defensibilities", "economic","economical","economically","ecophysiology","ecospecies","ecosphere","ecosystems","ecoterrorists", "fervency","fervidnesses","festival","festivalgoer","festivalgoers","festivals","festive","festively","festiveness","festivenesses","festivities","festivity","festoon","festooned","festooneries","fetal","fetas","fetation","fetching","fetchingly","feted");
+	var index = Math.round(Math.random()*10000)%100; //gives random number(indices) from 0 to 100
+	// console.log(words[index] + ' for test purposes, random word');//for tests only
 	
 	var alphabets = new Array(); //array that stores characters to be compared with the input characters, equals to characters from random word
 	var alpha_index = 0;
@@ -43,7 +42,7 @@ $(function(){
 			else{
 				choice+="* "; //current state, no word character will be shown
 
-				circles = `<div class="circle" style="background-color: red;">${words[index].charAt(i)}</div>`;
+				circles = `<div class="circle" style="background-color: red;"></div>`;
 				//${words[index].charAt(i)}
 				dispCircles+=circles
 				//not a win yet
@@ -75,46 +74,26 @@ $(function(){
 	}
 
 	//clicking start button
-	$('.start').click(
-		function startgame(){
-		chose(); //displays the hidden word characters in input box that is chosen at random
-		newRandomWord() //when start is clicked again
-		time(); // ticking time function
-		
-	})
-//retry button function
-	$('.retry').click(()=>{
-		retry();
-	}
-	)
-
-	//if start button is clicked again
-	function newRandomWord(){
+	$('.start').click(()=>{
 		if(!running){
 			running = 1; //game started
 			fail = 6; //attempts  starts at 6
 			document.lifeform.life.value = fail; //displays attempts in attempts in div in browser
-			document.alphform.trials.value = "";//default value displayed
-			document.alphform.word.value = "";//default value
+			document.alphform.trials.value = "";//input 2 box will be empty for input characters to display
+			document.alphform.word.value = "";//default value removed, hangerman and random word added (*** characters)
 			chose(); //displays the hidden word characters in input box that is chosen at random
+			time();//time starts
 		}
 		else{
 			helpmsg('Word playing, time is ticking!');//if clicked again, this message is shown, nothing changes
 		}
-	}
-
-	//function for reloading the page not working properly
-	const retry = ()=>{
-			window.location.reload();
-			chose;
-			time();
-		}
+		
+	})
 		
 	//clicking go button to submit keyboard inputs
 	$('#go').click((e)=>{
-		e.preventDefault();//preventing browser from reloading in every letter submission
+		e.preventDefault();//preventing browser from reloading in every letter submission, very important!
 		findLetter();//function for letter inputs
-		// LEDletters(); //function for greenleds letter input
 	})
 
 	//function to get input from keyboard and compare the letters
@@ -168,6 +147,7 @@ $(function(){
 					document.getElementById('0').style.display = 'block'; //hangman last part
 						document.alphform.trials.value = "You lose";
 						document.alphform.word.value = words[index];//displaying the word
+
 						running = 0; //state not running
 						clearInterval(counts);
 					}
@@ -185,18 +165,17 @@ $(function(){
 			advising = -1;
 			messageSaved = document.alphform.trials.value; //msg that will be displayed
 			document.alphform.trials.value = msg; //which is equal to argument of advise function that will be passed
-			window.setTimeout("document.alphform.trials.value = messageSaved; advising=0;", 1000);
+			window.setTimeout(`document.alphform.trials.value = messageSaved; ${advising=0}`, 1000); //advise 0, ensures msg is called over and over
 		}
 	}
 
 	//timer function
 	const time = ()=>{
-		let timeCount = new Date(60000); //where to start counting from (time 60 sec)
+		let timeCount = new Date(70000); //where to start counting from (time 60 sec)can change according to other counts(millisec)
 		const digits = {//format display according to text value in browser
 			minute: '2-digit',
 			second: '2-digit',
 		};
-
 		const tick = function (){
 			timeCount -= 1000 // counting downwards
 			const timeFormat = Intl.DateTimeFormat('en-US',digits).format(timeCount);
